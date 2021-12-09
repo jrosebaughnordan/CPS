@@ -1,3 +1,3 @@
 CounterFit
 counterfit_shims_grove
-mqtt
+paho-mqtt
