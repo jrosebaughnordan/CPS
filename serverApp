@@ -1,7 +1,7 @@
 
 import json
 import time
-
+from .sendEmail import sendEmail
 import paho.mqtt.client as mqtt
 
 id = 'JamesAndBibuCPS6045Project'
@@ -23,12 +23,6 @@ mqtt_client2.loop_start()
 
 
 total_rain = 0
-
-def sendEmail(emailType):
-    print(emailType + " email being sent to distro list")
-    #TODO 
-    #Query a server or db and get emails to send 
-    #and then send them
 
 def handle_telemetry(client, userdata, message):
     payload = json.loads(message.payload.decode())
@@ -55,6 +49,10 @@ mqtt_client2.on_message = handle_telemetry2
 timer = 0
 while True:
     timer += 1
+    if total_rain > 25000:
+        # if there is too much rain in a given timeframe, 
+        #send the rain email
+        sendEmail("tooMuchRain")
     if timer > 20:
         timer = 0
         total_rain = 0
