@@ -1,19 +1,14 @@
 from counterfit_connection import CounterFitConnection
 CounterFitConnection.init('127.0.0.1', 5000)
-
+import random
 import time
-from counterfit_shims_grove.adc import ADC
-from counterfit_shims_grove.grove_relay import GroveRelay
 import json
 import paho.mqtt.client as mqtt
-
-adc = ADC()
-relay = GroveRelay(5)
 
 id = 'JamesAndBibuCPS6045Project'
 
 client_telemetry_topic = id + '/telemetry3'
-client_name = id + 'soilmoisturesensor3_client'
+client_name = id + 'UVSensor3_client'
 
 mqtt_client = mqtt.Client(client_name)
 mqtt_client.connect('test.mosquitto.org')
@@ -21,9 +16,9 @@ mqtt_client.connect('test.mosquitto.org')
 mqtt_client.loop_start()
 
 while True:
-    soil_moisture = adc.read(0)
-    print("Soil moisture:", soil_moisture)
+    UVlevel = random.randint(1,15)
+    print("UV Level: ", UVlevel)
 
-    mqtt_client.publish(client_telemetry_topic, json.dumps({'soil_moisture' : soil_moisture}))
+    mqtt_client.publish(client_telemetry_topic, json.dumps({'UV_Level' : UVlevel}))
 
     time.sleep(10)
