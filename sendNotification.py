@@ -1,16 +1,8 @@
 import smtplib
 import time
+import sys
 
 uvRange = {'low': [1,2], 'medium': list(range(3,6)), 'high' :  [6,7], 'veryHigh' : [8,9,10], 'extremelyHigh' : list(range(11,15)) }
-
-
-def sendEmail(emailType):
-    if (type == 'UV'):
-        #send uv email
-        email = type   
-    elif (type == 'Rain'):
-#print(uvRange)
-
 
 emailSubjLine = ''
 emailBody = ''
@@ -32,14 +24,12 @@ def sendEmail(sensorType, sensorValue):
         elif (sensorValue in uvRange['extremelyHigh']):
                 emailSubjLine = 'URGENT: UV is Extremely High'
                 emailBody = 'UV is extremely high, match should be abandoned'
-    elif (sensorType == 'rain'):
-        email = type
+    elif (sensorType == 'Rain'):
+        emailSubjLine = 'URGENT: Heavy Rain Detected'
+        emailBody = 'Heavy Rain Detected, match should be abandoned'
     else:
-        email = 'errorSentToAdmins'
-
-    
-
-
+        emailSubjLine = 'IGNORE: False Alert'
+        emailBody = 'Please ignore false alert'
 
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         smtp.ehlo()
@@ -57,7 +47,10 @@ def sendEmail(sensorType, sensorValue):
         smtp.sendmail('iotproj6045@gmail.com','iotproj6045@gmail.com',emailMsg)
 
 if __name__ == '__main__':
-    for i in range(1,16):
-        sendEmail('UV',i)
-        print("i " + str(i))
-        time.sleep(5)
+    #for i in range(1,16):
+    sensorType = sys.ARGV[0]
+    sensorValue = sys.ARGV[1]
+    sendEmail(sensorType,sensorValue)
+        #sendEmail('UV',i)
+        #print("i " + str(i))
+        #time.sleep(5)
