@@ -22,7 +22,6 @@ mqtt_client.loop_start()
 while True:
     soil_moisture = adc.read(1)
     print("Soil moisture:", soil_moisture)
-
-    mqtt_client.publish(client_telemetry_topic, json.dumps({'soil_moisture' : soil_moisture}))
+    mqtt_client.publish(client_telemetry_topic, json.dumps({'soil_moisture2' : soil_moisture}))
 
     time.sleep(10)
