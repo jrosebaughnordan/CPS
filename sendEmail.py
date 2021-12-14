@@ -3,6 +3,12 @@ import time
 
 uvRange = {'low': [1,2], 'medium': list(range(3,6)), 'high' :  [6,7], 'veryHigh' : [8,9,10], 'extremelyHigh' : list(range(11,15)) }
 
+
+def sendEmail(emailType):
+    if (type == 'UV'):
+        #send uv email
+        email = type   
+    elif (type == 'Rain'):
 #print(uvRange)
 
 
