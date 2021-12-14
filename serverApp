@@ -1,7 +1,7 @@
 
 import json
 import time
-from sendEmail import sendEmail;
+from sendNotification import sendEmail
 import paho.mqtt.client as mqtt
 
 id = 'JamesAndBibuCPS6045Project'
@@ -58,12 +58,7 @@ mqtt_client3.on_message = handle_telemetry3
 timer = 0
 while True:
     timer += 1
-    if UV >= 14:
-        sendEmail("UV", UV)
-    elif UV > 10:
-        sendEmail("UV", UV)
-    elif UV > 6:
-        sendEmail("UV", UV)
+    sendEmail('UV',UV)
     if total_rain > 25000:
         # if there is too much rain in a given timeframe, 
         #send the rain email
